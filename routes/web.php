@@ -1,4 +1,7 @@
 <?php
+use App\Product;
+use App\Category;
+use App\ProductImage;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +31,27 @@ Route::get('/', 'TestController@welcome');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/p', function () {
+    $prod =Product::first();
+
+    return 'Producto <br>'.$prod->category;
+});
+//retorna los productos de una determinada categoria y los cuenta
+Route::get('/c', function () {
+    $cat = Category::first();
+    // $pro almacena todos los productos de la primera categ
+    $pro=$cat->products;
+    // $cantP cantidad de productos en la primera categoria
+    $cantP=$cat->products()->count();
+    // return 'Cantidad de Producto <br>'.$cat.'<br><br>los p'.$pro;
+    return 'Cantidad de Producto <br>'.$cantP;
+});
+
+//retorna los productos de una determinada categoria y los cuenta
+Route::get('/i', function () {
+    $img = ProductImage::first();
+    // $pro almacena el objeto productos que tiene la primera imagen
+    $pro=$img->product;
+    return 'Id del Producto <br>'.$pro->id;
+});
